@@ -25,6 +25,7 @@
             margin: 0;
             padding: 20px;
             min-height: 100vh;
+            -webkit-tap-highlight-color: transparent; /* Αφαιρεί το μπλε πλαίσιο στο κινητό */
         }
 
         .container {
@@ -56,7 +57,7 @@
             margin-top: 30px;
         }
 
-        /* Interactive Cards */
+        /* Interactive Cards - ΟΛΗ Η ΚΑΡΤΑ ΕΙΝΑΙ ΚΟΥΜΠΙ */
         .card {
             flex: 1;
             min-width: 300px;
@@ -69,20 +70,17 @@
             cursor: pointer; /* Δείχνει χεράκι */
             transition: all 0.3s ease;
             position: relative;
+            user-select: none; /* Να μην μαρκάρεται το κείμενο */
         }
 
+        /* Εφέ όταν ακουμπάς την κάρτα */
         .card:hover {
             transform: translateY(-5px) scale(1.02);
             background: rgba(255, 255, 255, 0.1);
         }
 
-        .click-hint {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 0.8rem;
-            color: var(--neon-blue);
-            animation: pulse 2s infinite;
+        .card:active {
+            transform: scale(0.98); /* Εφέ "πατήματος" στο κινητό */
         }
 
         /* Vodafone Specifics */
@@ -95,33 +93,33 @@
         .card.nova:hover { box-shadow: 0 0 30px rgba(106, 27, 154, 0.4); }
         .card.nova h2 { color: #ce93ff; }
 
-        .provider-logo { height: 40px; object-fit: contain; margin-bottom: 10px; }
-        .big-data { font-family: 'Orbitron'; font-size: 2.5rem; font-weight: bold; margin: 10px 0; }
-        .price { font-size: 2rem; font-weight: bold; }
+        .provider-logo { height: 40px; object-fit: contain; margin-bottom: 10px; pointer-events: none; }
+        .big-data { font-family: 'Orbitron'; font-size: 2.5rem; font-weight: bold; margin: 10px 0; pointer-events: none; }
+        .price { font-size: 2rem; font-weight: bold; pointer-events: none; }
         .price span { font-size: 0.9rem; font-weight: normal; opacity: 0.8; }
 
-        /* MODAL (Το παράθυρο που ανοίγει) */
+        /* MODAL POPUP */
         .modal-overlay {
-            display: none; /* Κρυφό αρχικά */
+            display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             z-index: 1000;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
         }
 
         .modal-content {
             background: var(--modal-bg);
-            border: 1px solid #444;
+            border: 1px solid #555;
             padding: 30px;
             border-radius: 20px;
-            width: 90%;
+            width: 85%;
             max-width: 500px;
             text-align: left;
             position: relative;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            box-shadow: 0 0 50px rgba(0,0,0,0.9);
             animation: slideUp 0.3s ease-out;
         }
 
@@ -129,37 +127,39 @@
             position: absolute;
             top: 15px;
             right: 20px;
-            font-size: 1.5rem;
-            color: #888;
+            font-size: 2rem;
+            color: #ccc;
             cursor: pointer;
             background: none;
             border: none;
+            line-height: 1;
         }
 
         .download-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #333;
+            background: linear-gradient(135deg, #333, #111);
             color: white;
             padding: 15px;
-            border-radius: 10px;
+            border-radius: 12px;
             text-decoration: none;
-            margin-top: 15px;
-            border: 1px solid #555;
+            margin-top: 20px;
+            border: 1px solid #666;
             transition: 0.3s;
             font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
         .download-btn:hover {
             background: white;
             color: black;
+            transform: translateY(-2px);
         }
-        .download-icon { margin-right: 10px; font-size: 1.2rem; }
+        .download-icon { margin-right: 10px; font-size: 1.3rem; }
 
         /* Footer */
         .footer-section { margin-top: 50px; border-top: 1px solid #333; padding-top: 20px; }
         
-        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
         @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
     </style>
@@ -171,13 +171,12 @@
         <div class="header-section">
             <img src="logo.png" alt="ΕΛ.ΑΣ" onerror="this.style.display='none'">
             <h1>Προμηθευτικος Συνεταιρισμος<br>Αστυνομικων Αττικης</h1>
-            <p style="color: #aaa; font-size: 0.9rem;">Πάτησε πάνω στην προσφορά για δικαιολογητικά</p>
+            <p style="color: #aaa; font-size: 0.9rem;">Επίλεξε πακέτο για λεπτομέρειες</p>
         </div>
 
         <div class="offers-grid">
             
             <div class="card vodafone" onclick="openModal('voda')">
-                <div class="click-hint">👆 ΠΑΤΑ ΕΔΩ</div>
                 <img src="vodafone.png" alt="Vodafone" class="provider-logo" onerror="this.style.display='none';">
                 <h2 style="margin:0;">VODAFONE CU</h2>
                 <div class="big-data">300 GB</div>
@@ -186,7 +185,6 @@
             </div>
 
             <div class="card nova" onclick="openModal('nova')">
-                <div class="click-hint">👆 ΠΑΤΑ ΕΔΩ</div>
                 <img src="nova.png" alt="Nova" class="provider-logo" onerror="this.style.display='none';">
                 <h2 style="margin:0;">NOVA</h2>
                 <div class="big-data">UNLIMITED</div>
@@ -207,5 +205,64 @@
             <button class="close-btn" onclick="closeModalBtn()">×</button>
             
             <div id="voda-content" style="display:none;">
-                <h2 style="color: var(--voda-red);">Vodafone CU 300GB</h2>
-                <p>Για να ενεργοποιήσετε την προσφορά χρει
+                <h2 style="color: var(--voda-red); margin-top: 0;">Vodafone CU 300GB</h2>
+                <p>Για να ενεργοποιήσετε την προσφορά:</p>
+                <ul style="color: #ccc; line-height: 1.6; padding-left: 20px;">
+                    <li>Φωτοτυπία Ταυτότητας</li>
+                    <li>Αίτηση Ενεργοποίησης</li>
+                </ul>
+                <a href="voda_aitisi.pdf" class="download-btn" download>
+                    <span class="download-icon">⬇️</span> Λήψη Αίτησης (PDF)
+                </a>
+            </div>
+
+            <div id="nova-content" style="display:none;">
+                <h2 style="color: #ce93ff; margin-top: 0;">Nova Unlimited</h2>
+                <p>Απαραίτητα δικαιολογητικά:</p>
+                <ul style="color: #ccc; line-height: 1.6; padding-left: 20px;">
+                    <li>Φωτοτυπία Ταυτότητας (2 όψεις)</li>
+                    <li>Συμπληρωμένη Αίτηση</li>
+                </ul>
+                <a href="nova_aitisi.pdf" class="download-btn" download>
+                    <span class="download-icon">⬇️</span> Λήψη Αίτησης (PDF)
+                </a>
+            </div>
+
+            <div style="margin-top: 25px; text-align: center; border-top: 1px solid #444; padding-top: 15px;">
+                <p style="font-size: 0.8rem; color: #888; margin-bottom: 5px;">Απορίες;</p>
+                <a href="tel:6936799908" style="color: var(--neon-blue); text-decoration: none; font-weight: bold; font-size: 1.3rem;">📞 693 679 9908</a>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function openModal(type) {
+            const modal = document.getElementById('offerModal');
+            const vodaContent = document.getElementById('voda-content');
+            const novaContent = document.getElementById('nova-content');
+
+            modal.style.display = 'flex';
+
+            if (type === 'voda') {
+                vodaContent.style.display = 'block';
+                novaContent.style.display = 'none';
+            } else {
+                vodaContent.style.display = 'none';
+                novaContent.style.display = 'block';
+            }
+        }
+
+        function closeModalBtn() {
+            document.getElementById('offerModal').style.display = 'none';
+        }
+
+        function closeModal(event) {
+            if (event.target === document.getElementById('offerModal')) {
+                document.getElementById('offerModal').style.display = 'none';
+            }
+        }
+    </script>
+
+</body>
+</html>
