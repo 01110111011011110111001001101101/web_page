@@ -10,6 +10,7 @@
             --voda-red: #e60000;
             --nova-purple: #6a1b9a;
             --neon-blue: #00f3ff;
+            --gov-blue: #0055aa;
             --bg-dark: #050505;
             --glass: rgba(255, 255, 255, 0.05);
             --modal-bg: #1a1a1a;
@@ -25,143 +26,115 @@
             margin: 0;
             padding: 20px;
             min-height: 100vh;
-            -webkit-tap-highlight-color: transparent; /* Αφαιρεί το μπλε πλαίσιο στο κινητό */
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
+        .container { max-width: 900px; margin: 0 auto; }
+
+        /* --- ΝΕΟ HEADER STYLE (Δίπλα-Δίπλα) --- */
+        .header-section {
+            display: flex;             /* Τα βάζει στη σειρά */
+            align-items: center;       /* Κεντράρει κάθετα */
+            justify-content: center;   /* Κεντράρει οριζόντια στη σελίδα */
+            gap: 20px;                 /* Κενό ανάμεσα σε εικόνα και κείμενο */
+            margin-bottom: 40px;       /* Κενό από κάτω */
         }
 
-        /* Header */
         .header-section img {
-            max-width: 100px;
+            max-width: 90px;           /* Ελαφρώς μικρότερο για να ταιριάζει */
+            height: auto;
             filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+            flex-shrink: 0;            /* Να μην "ζουλιέται" η εικόνα */
         }
+
+        .header-text {
+            text-align: left;          /* Το κείμενο στοιχίζεται αριστερά */
+        }
+        
         h1 {
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Orbitron';
             font-size: 1.3rem;
             color: #ccc;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 10px;
+            margin: 0 0 5px 0;         /* Αφαίρεση πάνω περιθωρίου */
+            line-height: 1.2;
         }
+        /* -------------------------------------- */
 
-        /* Grid */
-        .offers-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 30px;
-        }
+        .offers-grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 30px; }
 
-        /* Interactive Cards - ΟΛΗ Η ΚΑΡΤΑ ΕΙΝΑΙ ΚΟΥΜΠΙ */
+        /* Cards */
         .card {
-            flex: 1;
-            min-width: 300px;
-            max-width: 400px;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 30px 20px;
-            cursor: pointer; /* Δείχνει χεράκι */
-            transition: all 0.3s ease;
-            position: relative;
-            user-select: none; /* Να μην μαρκάρεται το κείμενο */
+            flex: 1; min-width: 300px; max-width: 400px;
+            background: var(--glass); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px;
+            padding: 30px 20px; cursor: pointer; transition: all 0.3s ease;
+            position: relative; user-select: none; text-align: center;
         }
-
-        /* Εφέ όταν ακουμπάς την κάρτα */
-        .card:hover {
-            transform: translateY(-5px) scale(1.02);
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .card:active {
-            transform: scale(0.98); /* Εφέ "πατήματος" στο κινητό */
-        }
-
-        /* Vodafone Specifics */
+        .card:hover { transform: translateY(-5px) scale(1.02); background: rgba(255, 255, 255, 0.1); }
         .card.vodafone { border-top: 4px solid var(--voda-red); }
-        .card.vodafone:hover { box-shadow: 0 0 30px rgba(230, 0, 0, 0.3); }
-        .card.vodafone h2 { color: var(--voda-red); }
-
-        /* Nova Specifics */
+        .card.vodafone h2 { color: var(--voda-red); margin: 0; }
         .card.nova { border-top: 4px solid var(--nova-purple); }
-        .card.nova:hover { box-shadow: 0 0 30px rgba(106, 27, 154, 0.4); }
-        .card.nova h2 { color: #ce93ff; }
+        .card.nova h2 { color: #ce93ff; margin: 0; }
 
         .provider-logo { height: 40px; object-fit: contain; margin-bottom: 10px; pointer-events: none; }
         .big-data { font-family: 'Orbitron'; font-size: 2.5rem; font-weight: bold; margin: 10px 0; pointer-events: none; }
         .price { font-size: 2rem; font-weight: bold; pointer-events: none; }
         .price span { font-size: 0.9rem; font-weight: normal; opacity: 0.8; }
 
-        /* MODAL POPUP */
+        /* MODAL */
         .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(8px);
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9); z-index: 1000;
+            justify-content: center; align-items: center; backdrop-filter: blur(5px);
         }
 
         .modal-content {
-            background: var(--modal-bg);
-            border: 1px solid #555;
-            padding: 30px;
-            border-radius: 20px;
-            width: 85%;
-            max-width: 500px;
-            text-align: left;
-            position: relative;
-            box-shadow: 0 0 50px rgba(0,0,0,0.9);
+            background: var(--modal-bg); border: 1px solid #555; padding: 25px;
+            border-radius: 20px; width: 90%; max-width: 500px;
+            text-align: left; position: relative;
+            max-height: 90vh; overflow-y: auto;
             animation: slideUp 0.3s ease-out;
         }
 
         .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2rem;
-            color: #ccc;
-            cursor: pointer;
-            background: none;
-            border: none;
-            line-height: 1;
+            position: absolute; top: 15px; right: 20px; font-size: 2rem;
+            color: #ccc; cursor: pointer; background: none; border: none; line-height: 1; z-index: 10;
         }
 
-        .download-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #333, #111);
-            color: white;
-            padding: 15px;
-            border-radius: 12px;
-            text-decoration: none;
-            margin-top: 20px;
-            border: 1px solid #666;
-            transition: 0.3s;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        .action-btn {
+            display: flex; align-items: center; justify-content: center;
+            width: 100%; padding: 15px; border-radius: 12px;
+            text-decoration: none; margin-top: 15px;
+            font-weight: bold; font-size: 1.1rem; cursor: pointer; border: none;
+            transition: 0.3s; box-sizing: border-box;
         }
-        .download-btn:hover {
-            background: white;
-            color: black;
-            transform: translateY(-2px);
-        }
-        .download-icon { margin-right: 10px; font-size: 1.3rem; }
 
-        /* Footer */
-        .footer-section { margin-top: 50px; border-top: 1px solid #333; padding-top: 20px; }
+        .pdf-btn { background: #333; color: #ddd; border: 1px solid #555; }
+        .pdf-btn:hover { background: #444; color: white; }
+
+        .online-btn {
+            background: linear-gradient(135deg, #00b09b, #96c93d); color: black;
+            box-shadow: 0 4px 15px rgba(0, 255, 157, 0.3);
+        }
+        .online-btn:hover { transform: translateY(-2px); }
+
+        /* GOV GR SECTION STYLES */
+        .gov-step {
+            background: #2a2a2a; border-left: 4px solid var(--gov-blue);
+            padding: 15px; margin-bottom: 15px; border-radius: 0 10px 10px 0;
+        }
+        .gov-btn {
+            background-color: var(--gov-blue); color: white;
+            font-size: 0.9rem; padding: 10px; margin-top: 5px;
+        }
+        .gov-btn:hover { background-color: #004499; color: white; }
+
+        .form-frame { width: 100%; height: 500px; border: none; background: white; border-radius: 10px; margin-top: 10px; }
+        .back-btn { background: transparent; color: #aaa; border: 1px solid #444; margin-bottom: 15px; font-size: 0.9rem; padding: 10px; }
+        .footer-section { margin-top: 50px; border-top: 1px solid #333; padding-top: 20px; text-align: center; }
         
         @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
     </style>
 </head>
 <body>
@@ -170,16 +143,16 @@
         
         <div class="header-section">
             <img src="logo.png" alt="ΕΛ.ΑΣ" onerror="this.style.display='none'">
-            <h1>O Προμηθευτικος Συνεταιρισμος<br>Αστυνομικων Αττικης</h1>
-             <h1>εξασφαλισέ μοναδική προσφορά <br>για όλους τους Αστυνομικούς</h1>
-            <p style="color: #aaa; font-size: 0.9rem;">Επίλεξε εταιρία κινητής για λεπτομέρειες</p>
-        </div>
-
-        <div class="offers-grid">
             
+            <div class="header-text">
+                <h1>Προμηθευτικος Συνεταιρισμος<br>Αστυνομικων Αττικης</h1>
+                <p style="color: #aaa; font-size: 0.9rem; margin: 5px 0 0 0;">Επίλεξε πακέτο για αίτηση</p>
+            </div>
+        </div>
+        <div class="offers-grid">
             <div class="card vodafone" onclick="openModal('voda')">
                 <img src="vodafone.png" alt="Vodafone" class="provider-logo" onerror="this.style.display='none';">
-                <h2 style="margin:0;">VODAFONE CU</h2>
+                <h2>VODAFONE CU</h2>
                 <div class="big-data">300 GB</div>
                 <div class="price">100€ <span>/ ΕΤΟΣ</span></div>
                 <p style="font-size: 0.9rem; color: #ccc;">Με rollover & 100 SMS</p>
@@ -187,83 +160,77 @@
 
             <div class="card nova" onclick="openModal('nova')">
                 <img src="nova.png" alt="Nova" class="provider-logo" onerror="this.style.display='none';">
-                <h2 style="margin:0;">NOVA</h2>
+                <h2>NOVA</h2>
                 <div class="big-data">UNLIMITED</div>
                 <div class="price">99€ <span>/ ΕΤΟΣ</span></div>
                 <p style="font-size: 0.9rem; color: #ccc;">Απεριόριστα Data & 300 SMS</p>
             </div>
-
         </div>
 
         <div class="footer-section">
             <p style="color: #666;">© 2025 - Τηλ: 210 524 5210</p>
         </div>
-
     </div>
 
     <div id="offerModal" class="modal-overlay" onclick="closeModal(event)">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModalBtn()">×</button>
+            <h2 id="modal-title" style="margin-top: 0;"></h2>
             
-            <div id="voda-content" style="display:none;">
-                <h2 style="color: var(--voda-red); margin-top: 0;">Vodafone CU 300GB</h2>
-                <p>Για να ενεργοποιήσετε την προσφορά:</p>
-                <ul style="color: #ccc; line-height: 1.6; padding-left: 20px;">
-                    <li>Φωτοτυπία Ταυτότητας</li>
-                    <li>Αίτηση Ενεργοποίησης</li>
-                </ul>
-                <a href="voda_aitisi.pdf" class="download-btn" download>
-                    <span class="download-icon">⬇️</span> Λήψη Αίτησης (PDF)
-                </a>
+            <div id="options-view">
+                <p>Επιλέξτε τρόπο υποβολής:</p>
+                <button class="action-btn online-btn" onclick="showForm()">📝 Online Αίτηση (με Gov.gr)</button>
+                <a id="pdf-link" href="#" class="action-btn pdf-btn" download>⬇️ Κατέβασε την Αίτηση (PDF)</a>
+                <div style="margin-top: 25px; border-top: 1px solid #444; padding-top: 15px; text-align: center;">
+                    <a href="tel:6936799908" style="color: var(--neon-blue); text-decoration: none; font-weight: bold;">📞 Χρειάζεσαι βοήθεια;</a>
+                </div>
             </div>
 
-            <div id="nova-content" style="display:none;">
-                <h2 style="color: #ce93ff; margin-top: 0;">Nova Unlimited</h2>
-                <p>Απαραίτητα δικαιολογητικά:</p>
-                <ul style="color: #ccc; line-height: 1.6; padding-left: 20px;">
-                    <li>Φωτοτυπία Ταυτότητας (2 όψεις)</li>
-                    <li>Συμπληρωμένη Αίτηση</li>
-                </ul>
-                <a href="nova_aitisi.pdf" class="download-btn" download>
-                    <span class="download-icon">⬇️</span> Λήψη Αίτησης (PDF)
-                </a>
-            </div>
+            <div id="form-view" style="display: none;">
+                <button class="action-btn back-btn" onclick="showOptions()">⬅️ Πίσω</button>
+                
+                <div class="gov-step">
+                    <strong style="color: var(--neon-blue);">ΒΗΜΑ 1:</strong> Έκδοση Εγγράφου
+                    <p style="font-size: 0.9rem; margin: 5px 0; color: #ccc;">Μπείτε στο Gov.gr, εκδώστε την Υπεύθυνη Δήλωση και αποθηκεύστε το PDF.</p>
+                    <a href="https://www.gov.gr/ipiresies/polites-kai-kathemerinoteta/psephiaka-eggrapha-gov-gr/ekdose-upeuthunes-deloses" target="_blank" class="action-btn gov-btn">
+                        🏛️ Μετάβαση στο Gov.gr
+                    </a>
+                </div>
 
-            <div style="margin-top: 25px; text-align: center; border-top: 1px solid #444; padding-top: 15px;">
-                <p style="font-size: 0.8rem; color: #888; margin-bottom: 5px;">Απορίες;</p>
-                <a href="tel:6936799908" style="color: var(--neon-blue); text-decoration: none; font-weight: bold; font-size: 1.3rem;">📞 693 679 9908</a>
+                <div style="margin-top: 20px;">
+                    <strong style="color: var(--neon-blue);">ΒΗΜΑ 2:</strong> Συμπλήρωση & Upload
+                    <p style="font-size: 0.9rem; margin: 5px 0; color: #ccc;">Συμπληρώστε τη φόρμα και ανεβάστε το αρχείο PDF.</p>
+                    
+                    <iframe id="google-form-frame" class="form-frame" src="">Φόρτωση...</iframe>
+                </div>
             </div>
 
         </div>
     </div>
 
     <script>
+        // ⚠️ ΜΗΝ ΞΕΧΑΣΕΙΣ ΝΑ ΒΑΛΕΙΣ ΤΑ ΣΩΣΤΑ LINK ΣΤΑ FORMURL ΠΙΟ ΚΑΤΩ!
+        const data = {
+            voda: {
+                title: "Vodafone CU (300GB)",
+                color: "#e60000",
+                pdf: "voda_aitisi.pdf",
+                formUrl: "https://docs.google.com/forms/d/e/XXXXXX_VODAFONE_XXXXXX/viewform?embedded=true"
+            },
+            nova: {
+                title: "Nova Unlimited",
+                color: "#ce93ff",
+                pdf: "nova_aitisi.pdf",
+                formUrl: "https://docs.google.com/forms/d/e/XXXXXX_NOVA_XXXXXX/viewform?embedded=true"
+            }
+        };
+
+        let currentProvider = null;
+
         function openModal(type) {
-            const modal = document.getElementById('offerModal');
-            const vodaContent = document.getElementById('voda-content');
-            const novaContent = document.getElementById('nova-content');
-
-            modal.style.display = 'flex';
-
-            if (type === 'voda') {
-                vodaContent.style.display = 'block';
-                novaContent.style.display = 'none';
-            } else {
-                vodaContent.style.display = 'none';
-                novaContent.style.display = 'block';
-            }
-        }
-
-        function closeModalBtn() {
-            document.getElementById('offerModal').style.display = 'none';
-        }
-
-        function closeModal(event) {
-            if (event.target === document.getElementById('offerModal')) {
-                document.getElementById('offerModal').style.display = 'none';
-            }
-        }
-    </script>
-
-</body>
-</html>
+            currentProvider = data[type];
+            document.getElementById('modal-title').innerText = currentProvider.title;
+            document.getElementById('modal-title').style.color = currentProvider.color;
+            document.getElementById('pdf-link').href = currentProvider.pdf;
+            showOptions
+    
