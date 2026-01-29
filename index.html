@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Προσφορές Κινητής | Συνεταιρισμός Αστυνομικών</title>
+    <title>Προσφορές | Συνεταιρισμός Αστυνομικών</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -12,6 +12,7 @@
             --neon-blue: #00f3ff;
             --bg-dark: #050505;
             --glass: rgba(255, 255, 255, 0.05);
+            --modal-bg: #1a1a1a;
         }
 
         body {
@@ -32,32 +33,30 @@
             text-align: center;
         }
 
-        /* Header Area */
-        .header-section {
-            margin-bottom: 40px;
-        }
+        /* Header */
         .header-section img {
             max-width: 100px;
             filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
         }
         h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: #ccc;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             margin-top: 10px;
         }
 
-        /* Offers Grid */
+        /* Grid */
         .offers-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             justify-content: center;
+            margin-top: 30px;
         }
 
-        /* Generic Card Style */
+        /* Interactive Cards */
         .card {
             flex: 1;
             min-width: 300px;
@@ -67,103 +66,101 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             padding: 30px 20px;
+            cursor: pointer; /* Δείχνει χεράκι */
+            transition: all 0.3s ease;
             position: relative;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px) scale(1.02);
+            background: rgba(255, 255, 255, 0.1);
         }
 
-        /* VODAFONE STYLING */
-        .card.vodafone {
-            border-top: 4px solid var(--voda-red);
-        }
-        .card.vodafone:hover {
-            box-shadow: 0 0 30px rgba(230, 0, 0, 0.2);
-        }
-        .card.vodafone h2 {
-            color: var(--voda-red);
-            text-shadow: 0 0 10px rgba(230, 0, 0, 0.4);
+        .click-hint {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 0.8rem;
+            color: var(--neon-blue);
+            animation: pulse 2s infinite;
         }
 
-        /* NOVA STYLING */
-        .card.nova {
-            border-top: 4px solid var(--nova-purple);
-        }
-        .card.nova:hover {
-            box-shadow: 0 0 30px rgba(106, 27, 154, 0.3);
-        }
-        .card.nova h2 {
-            color: #d68eff; /* Lighter purple for text */
-            text-shadow: 0 0 10px rgba(106, 27, 154, 0.4);
+        /* Vodafone Specifics */
+        .card.vodafone { border-top: 4px solid var(--voda-red); }
+        .card.vodafone:hover { box-shadow: 0 0 30px rgba(230, 0, 0, 0.3); }
+        .card.vodafone h2 { color: var(--voda-red); }
+
+        /* Nova Specifics */
+        .card.nova { border-top: 4px solid var(--nova-purple); }
+        .card.nova:hover { box-shadow: 0 0 30px rgba(106, 27, 154, 0.4); }
+        .card.nova h2 { color: #ce93ff; }
+
+        .provider-logo { height: 40px; object-fit: contain; margin-bottom: 10px; }
+        .big-data { font-family: 'Orbitron'; font-size: 2.5rem; font-weight: bold; margin: 10px 0; }
+        .price { font-size: 2rem; font-weight: bold; }
+        .price span { font-size: 0.9rem; font-weight: normal; opacity: 0.8; }
+
+        /* MODAL (Το παράθυρο που ανοίγει) */
+        .modal-overlay {
+            display: none; /* Κρυφό αρχικά */
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
         }
 
-        /* Typography */
-        .provider-logo {
-            height: 40px;
-            margin-bottom: 10px;
-            object-fit: contain;
-        }
-        
-        .big-data {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin: 10px 0;
-            color: white;
-        }
-
-        .price {
-            font-size: 2.2rem;
-            font-weight: bold;
-            margin: 15px 0;
-        }
-        .price span {
-            font-size: 1rem;
-            font-weight: normal;
-            opacity: 0.8;
-        }
-
-        .features {
-            list-style: none;
-            padding: 0;
-            text-align: left;
-            margin: 20px 0;
-        }
-        .features li {
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            font-size: 1rem;
-        }
-        .features li:last-child { border-bottom: none; }
-        
-        .check { margin-right: 10px; }
-        .v-check { color: var(--voda-red); }
-        .n-check { color: #ce93ff; }
-
-        /* Footer / Contact */
-        .footer-section {
-            margin-top: 50px;
-            padding: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-        .call-btn {
-            display: inline-block;
-            background: #222;
-            color: white;
-            text-decoration: none;
-            padding: 10px 25px;
-            border-radius: 30px;
+        .modal-content {
+            background: var(--modal-bg);
             border: 1px solid #444;
-            margin: 5px;
-            transition: 0.3s;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            text-align: left;
+            position: relative;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            animation: slideUp 0.3s ease-out;
         }
-        .call-btn:hover {
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: #888;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #333;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-decoration: none;
+            margin-top: 15px;
+            border: 1px solid #555;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+        .download-btn:hover {
             background: white;
             color: black;
         }
+        .download-icon { margin-right: 10px; font-size: 1.2rem; }
+
+        /* Footer */
+        .footer-section { margin-top: 50px; border-top: 1px solid #333; padding-top: 20px; }
+        
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
     </style>
 </head>
@@ -174,54 +171,41 @@
         <div class="header-section">
             <img src="logo.png" alt="ΕΛ.ΑΣ" onerror="this.style.display='none'">
             <h1>Προμηθευτικος Συνεταιρισμος<br>Αστυνομικων Αττικης</h1>
-            <p style="color: #888;">Διάλεξε το πακέτο που σου ταιριάζει</p>
+            <p style="color: #aaa; font-size: 0.9rem;">Πάτησε πάνω στην προσφορά για δικαιολογητικά</p>
         </div>
 
         <div class="offers-grid">
             
-            <div class="card vodafone">
-                <img src="vodafone.png" alt="Vodafone CU" class="provider-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-                <h2 style="display:none; margin:0;">VODAFONE CU</h2>
-                
+            <div class="card vodafone" onclick="openModal('voda')">
+                <div class="click-hint">👆 ΠΑΤΑ ΕΔΩ</div>
+                <img src="vodafone.png" alt="Vodafone" class="provider-logo" onerror="this.style.display='none';">
+                <h2 style="margin:0;">VODAFONE CU</h2>
                 <div class="big-data">300 GB</div>
                 <div class="price">100€ <span>/ ΕΤΟΣ</span></div>
-                
-                <ul class="features">
-                    <li><span class="check v-check">✔</span> <strong>Με ROLLOVER</strong> (μεταφέρονται)</li>
-                    <li><span class="check v-check">✔</span> Απεριόριστη Ομιλία</li>
-                    <li><span class="check v-check">✔</span> 100 SMS / μήνα</li>
-                    <li><span class="check v-check">✔</span> Χωρίς Συμβόλαιο</li>
-                </ul>
+                <p style="font-size: 0.9rem; color: #ccc;">Με rollover & 100 SMS</p>
             </div>
 
-            <div class="card nova">
-                <img src="nova.png" alt="Nova" class="provider-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-                <h2 style="display:none; margin:0;">NOVA</h2>
-
+            <div class="card nova" onclick="openModal('nova')">
+                <div class="click-hint">👆 ΠΑΤΑ ΕΔΩ</div>
+                <img src="nova.png" alt="Nova" class="provider-logo" onerror="this.style.display='none';">
+                <h2 style="margin:0;">NOVA</h2>
                 <div class="big-data">UNLIMITED</div>
                 <div class="price">99€ <span>/ ΕΤΟΣ</span></div>
-
-                <ul class="features">
-                    <li><span class="check n-check">✔</span> <strong>Απεριόριστα DATA</strong></li>
-                    <li><span class="check n-check">✔</span> Απεριόριστη Ομιλία</li>
-                    <li><span class="check n-check">✔</span> 300 SMS / μήνα</li>
-                    <li><span class="check n-check">✔</span> Δυνατότητα νέου αριθμού</li>
-                </ul>
+                <p style="font-size: 0.9rem; color: #ccc;">Απεριόριστα Data & 300 SMS</p>
             </div>
 
         </div>
 
         <div class="footer-section">
-            <h3>Ενδιαφέρεσαι; Κάλεσε τώρα:</h3>
-            <a href="tel:6936799908" class="call-btn">📞 693 679 9908</a>
-            <a href="tel:2105245210" class="call-btn">📞 210 524 5210</a>
-            <p style="color: #666; font-size: 0.9rem; margin-top: 20px;">
-                © 2025 Προμηθευτικός Συνεταιρισμός Αστυνομικών Αττικής<br>
-                Ωράριο: 09:00 - 15:00
-            </p>
+            <p style="color: #666;">© 2025 - Τηλ: 210 524 5210</p>
         </div>
 
     </div>
 
-</body>
-</html>
+    <div id="offerModal" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModalBtn()">×</button>
+            
+            <div id="voda-content" style="display:none;">
+                <h2 style="color: var(--voda-red);">Vodafone CU 300GB</h2>
+                <p>Για να ενεργοποιήσετε την προσφορά χρει
