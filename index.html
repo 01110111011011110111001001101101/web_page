@@ -3,70 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Προσφορά Data & Ομιλίας</title>
+    <title>Προσφορά Data | Συνεταιρισμός Αστυνομικών</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-red: #ff003c;
+            --bg-dark: #050505;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1a1a1a; /* Σκούρο φόντο */
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 243, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 60, 0.1) 0%, transparent 20%);
             color: white;
-            text-align: center;
-            padding: 20px;
             margin: 0;
-        }
-        h1 {
-            color: #e60000; /* Vodafone Red */
-            margin-top: 30px;
-            text-transform: uppercase;
-        }
-        p {
-            font-size: 1.2rem;
-            color: #ccc;
-        }
-        ul {
-            list-style-type: none; /* Όχι κουκκίδες */
             padding: 0;
-            margin-top: 40px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        li {
+
+        .container {
+            max-width: 600px;
+            width: 90%;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        /* Logo Area */
+        .logo-container {
+            margin-top: 30px;
             margin-bottom: 20px;
         }
-        a {
+        .logo-img {
+            max-width: 120px;
+            height: auto;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: #ccc;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin: 10px 0;
+            background: linear-gradient(90deg, var(--neon-blue), white);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+        }
+
+        .price-tag {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--neon-red);
+            text-shadow: 0 0 15px var(--neon-red);
+            margin: 10px 0;
+        }
+        .price-sub {
+            font-size: 1rem;
+            color: white;
+            text-shadow: none;
+        }
+
+        /* Glassmorphism Cards */
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-blue);
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .feature-list li {
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            color: var(--neon-blue);
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.3rem;
+        }
+
+        .highlight {
+            color: var(--neon-blue);
+            font-weight: bold;
+        }
+
+        .contact-btn {
             display: block;
-            background-color: #e60000; /* Κουμπί κόκκινο */
+            background: linear-gradient(45deg, #c00, #900);
             color: white;
             text-decoration: none;
             padding: 15px;
-            border-radius: 8px; /* Στρογγυλεμένες γωνίες */
-            font-size: 1.1rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
             font-weight: bold;
-            max-width: 300px;
-            margin: 0 auto; /* Κεντράρισμα */
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            transition: background-color 0.3s;
+            margin-top: 15px;
+            box-shadow: 0 0 15px rgba(204, 0, 0, 0.4);
+            transition: 0.3s;
+            border: 1px solid #ff3333;
         }
-        a:hover {
-            background-color: #ff3333; /* Πιο ανοιχτό κόκκινο όταν το ακουμπάς */
+
+        .contact-btn:hover {
+            background: linear-gradient(45deg, #f00, #c00);
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+            transform: scale(1.02);
         }
+
         .footer {
-            margin-top: 50px;
+            margin-top: 40px;
             font-size: 0.8rem;
-            color: #555;
+            color: #666;
+            padding-bottom: 20px;
+        }
+
+        /* Animation */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 243, 255, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 243, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 243, 255, 0); }
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--neon-blue);
+            color: black;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            animation: pulse 2s infinite;
         }
     </style>
 </head>
 <body>
 
-    <h1>🚀 Σερφαρεις Τωρα!</h1>
-    <p>Δες τις αναλυτικές πληροφορίες για το πακέτο:</p>
-    
-    <ul>
-        <li><a href="file1.pdf" target="_blank">📄 Όροι Χρήσης (PDF)</a></li>
-        <li><a href="file2.pdf" target="_blank">📋 Τιμοκατάλογος (PDF)</a></li>
-        <li><a href="file3.pdf" target="_blank">ℹ️ Οδηγίες Ενεργοποίησης (PDF)</a></li>
-    </ul>
+    <div class="container">
+        
+        <div class="logo-container">
+            <img src="logo.png" alt="Λογότυπο Συνεταιρισμού" class="logo-img" onerror="this.style.display='none'">
+            <h1>Προμηθευτικος Συνεταιρισμος<br>Αστυνομικων Αττικης</h1>
+        </div>
 
-    <div class="footer">
-        © 2024 Προσφορά Κινητής
+        <div class="card">
+            <div class="badge">VODAFONE CU</div>
+            <h2>300 GB</h2>
+            <div class="price-tag">100€<span class="price-sub"> / ΕΤΟΣ</span></div>
+            <p style="font-size: 1.2rem; color: #eee;">Απεριόριστη Ομιλία & 100 SMS</p>
+        </div>
+
+        <div class="card">
+            <ul class="feature-list">
+                <li><span class="highlight">ROLLOVER:</span> Τα data δεν χάνονται! Μεταφέρονται στον επόμενο μήνα.</li>
+                <li>Χωρίς συμβόλαιο & δεσμεύσεις.</li>
+                <li>Δυνατότητα φορητότητας ή νέου αριθμού.</li>
+                <li>Ισχύει για αστυνομικούς, συγγενείς & φίλους.</li>
+            </ul>
+        </div>
+
+        <div class="card" style="border-color: var(--neon-blue);">
+            <h3 style="font-family: 'Orbitron'; margin-top: 0;">Ενδιαφερεσαι;</h3>
+            <p>Κάλεσε τώρα για εγγραφή:</p>
+            
+            <a href="tel:6936799908" class="contact-btn">📞 693 679 9908</a>
+            <a href="tel:2105245210" class="contact-btn" style="background: transparent; border: 1px solid #555; margin-top: 10px;">📞 210 524 5210</a>
+            
+            <p style="font-size: 0.9rem; margin-top: 15px; color: #aaa;">
+                🕒 Ώρες: 09:00 - 15:00<br>
+                📧 synetelas2011@gmail.com
+            </p>
+        </div>
+
+        <div class="footer">
+            © 2025 Προμηθευτικός Συνεταιρισμός Αστυνομικών Αττικής.<br>
+            Powered by CU.
+        </div>
     </div>
 
 </body>
