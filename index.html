@@ -27,41 +27,41 @@
             padding: 20px;
             min-height: 100vh;
             -webkit-tap-highlight-color: transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .container { max-width: 900px; margin: 0 auto; }
+        .container { max-width: 900px; width: 100%; text-align: center; }
 
-        /* --- ΝΕΟ HEADER STYLE (Δίπλα-Δίπλα) --- */
-        .header-section {
-            display: flex;             /* Τα βάζει στη σειρά */
-            align-items: center;       /* Κεντράρει κάθετα */
-            justify-content: center;   /* Κεντράρει οριζόντια στη σελίδα */
-            gap: 20px;                 /* Κενό ανάμεσα σε εικόνα και κείμενο */
-            margin-bottom: 40px;       /* Κενό από κάτω */
+        /* --- ΝΕΑ HERO SECTION (Το Πιασάρικο Μήνυμα) --- */
+        .hero-section {
+            margin-bottom: 40px;
+            margin-top: 20px;
         }
 
-        .header-section img {
-            max-width: 90px;           /* Ελαφρώς μικρότερο για να ταιριάζει */
-            height: auto;
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
-            flex-shrink: 0;            /* Να μην "ζουλιέται" η εικόνα */
-        }
-
-        .header-text {
-            text-align: left;          /* Το κείμενο στοιχίζεται αριστερά */
-        }
-        
-        h1 {
-            font-family: 'Orbitron';
-            font-size: 1.3rem;
-            color: #ccc;
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0;
+            background: linear-gradient(90deg, #fff, var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             text-transform: uppercase;
-            margin: 0 0 5px 0;         /* Αφαίρεση πάνω περιθωρίου */
-            line-height: 1.2;
+            letter-spacing: 1px;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
         }
-        /* -------------------------------------- */
 
-        .offers-grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 30px; }
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: #ccc;
+            margin-top: 10px;
+            font-weight: 300;
+        }
+        /* ----------------------------------------------- */
+
+        .offers-grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-bottom: 50px; }
 
         /* Cards */
         .card {
@@ -81,6 +81,37 @@
         .big-data { font-family: 'Orbitron'; font-size: 2.5rem; font-weight: bold; margin: 10px 0; pointer-events: none; }
         .price { font-size: 2rem; font-weight: bold; pointer-events: none; }
         .price span { font-size: 0.9rem; font-weight: normal; opacity: 0.8; }
+
+        /* --- SUPPLIER SECTION (Κάτω από τις κάρτες) --- */
+        .supplier-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            padding: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .supplier-section img {
+            max-width: 70px;
+            height: auto;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.1));
+        }
+
+        .supplier-text {
+            text-align: left;
+        }
+
+        .supplier-text h3 {
+            font-family: 'Orbitron';
+            font-size: 1rem;
+            color: #888;
+            text-transform: uppercase;
+            margin: 0;
+            line-height: 1.3;
+        }
+        /* --------------------------------------------- */
 
         /* MODAL */
         .modal-overlay {
@@ -119,7 +150,6 @@
         }
         .online-btn:hover { transform: translateY(-2px); }
 
-        /* GOV GR SECTION STYLES */
         .gov-step {
             background: #2a2a2a; border-left: 4px solid var(--gov-blue);
             padding: 15px; margin-bottom: 15px; border-radius: 0 10px 10px 0;
@@ -132,7 +162,7 @@
 
         .form-frame { width: 100%; height: 500px; border: none; background: white; border-radius: 10px; margin-top: 10px; }
         .back-btn { background: transparent; color: #aaa; border: 1px solid #444; margin-bottom: 15px; font-size: 0.9rem; padding: 10px; }
-        .footer-section { margin-top: 50px; border-top: 1px solid #333; padding-top: 20px; text-align: center; }
+        .footer-section { margin-top: 20px; font-size: 0.8rem; color: #555; }
         
         @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
@@ -141,14 +171,11 @@
 
     <div class="container">
         
-        <div class="header-section">
-            <img src="Logo.png" alt="ΕΛ.ΑΣ" onerror="this.style.display='none'">
-            
-            <div class="header-text">
-                <h1>Προμηθευτικος Συνεταιρισμος<br>Αστυνομικων Αττικης</h1>
-                <p style="color: #aaa; font-size: 0.9rem; margin: 5px 0 0 0;">Επίλεξε πακέτο για αίτηση</p>
-            </div>
+        <div class="hero-section">
+            <h1 class="hero-title">ΕΠΙΚΟΙΝΩΝΙΑ ΧΩΡΙΣ ΟΡΙΑ.<br>ΧΩΡΙΣ ΔΕΣΜΕΥΣΕΙΣ.</h1>
+            <p class="hero-subtitle">Η δύναμη στα χέρια σου — εύκολα, γρήγορα και οικονομικά!</p>
         </div>
+
         <div class="offers-grid">
             <div class="card vodafone" onclick="openModal('voda')">
                 <img src="vodafone.png" alt="Vodafone" class="provider-logo" onerror="this.style.display='none';">
@@ -167,8 +194,15 @@
             </div>
         </div>
 
+        <div class="supplier-section">
+            <img src="logo.png" alt="Λογότυπο Συνεταιρισμού" onerror="this.style.display='none'">
+            <div class="supplier-text">
+                <h3>Προμηθευτικος Συνεταιρισμος<br>Αστυνομικων Αττικης</h3>
+            </div>
+        </div>
+
         <div class="footer-section">
-            <p style="color: #666;">© 2025 - Τηλ: 210 524 5210</p>
+            © 2025 - Τηλ. Επικοινωνίας: 210 524 5210
         </div>
     </div>
 
@@ -200,7 +234,6 @@
                 <div style="margin-top: 20px;">
                     <strong style="color: var(--neon-blue);">ΒΗΜΑ 2:</strong> Συμπλήρωση & Upload
                     <p style="font-size: 0.9rem; margin: 5px 0; color: #ccc;">Συμπληρώστε τη φόρμα και ανεβάστε το αρχείο PDF.</p>
-                    
                     <iframe id="google-form-frame" class="form-frame" src="">Φόρτωση...</iframe>
                 </div>
             </div>
@@ -209,7 +242,7 @@
     </div>
 
     <script>
-        // ⚠️ ΜΗΝ ΞΕΧΑΣΕΙΣ ΝΑ ΒΑΛΕΙΣ ΤΑ ΣΩΣΤΑ LINK ΣΤΑ FORMURL ΠΙΟ ΚΑΤΩ!
+        // ⚠️ ΒΕΒΑΙΩΣΟΥ ΟΤΙ ΕΧΕΙΣ ΒΑΛΕΙ ΤΑ ΣΩΣΤΑ LINKS ΕΔΩ:
         const data = {
             voda: {
                 title: "Vodafone CU (300GB)",
@@ -232,5 +265,31 @@
             document.getElementById('modal-title').innerText = currentProvider.title;
             document.getElementById('modal-title').style.color = currentProvider.color;
             document.getElementById('pdf-link').href = currentProvider.pdf;
-            showOptions
-    
+            showOptions();
+            document.getElementById('offerModal').style.display = 'flex';
+        }
+
+        function showForm() {
+            document.getElementById('google-form-frame').src = currentProvider.formUrl;
+            document.getElementById('options-view').style.display = 'none';
+            document.getElementById('form-view').style.display = 'block';
+        }
+
+        function showOptions() {
+            document.getElementById('options-view').style.display = 'block';
+            document.getElementById('form-view').style.display = 'none';
+            document.getElementById('google-form-frame').src = ""; 
+        }
+
+        function closeModalBtn() {
+            document.getElementById('offerModal').style.display = 'none';
+        }
+
+        function closeModal(event) {
+            if (event.target === document.getElementById('offerModal')) {
+                document.getElementById('offerModal').style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
